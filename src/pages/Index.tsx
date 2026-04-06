@@ -9,6 +9,7 @@ import ProjectsSection from "@/components/ProjectsSection";
 import GitHubStats from "@/components/GitHubStats";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import ProfileCanvas from "@/components/ProfileCanvas";
 import { useLenis } from "@/hooks/useLenis";
 
 const Index = () => {
@@ -19,6 +20,7 @@ const Index = () => {
 
   return (
     <>
+      <ProfileCanvas />
       <CustomCursor />
       {loading && <LoadingScreen onComplete={handleLoadingComplete} />}
       <div className={loading ? "opacity-0" : "opacity-100 transition-opacity duration-500"}>
