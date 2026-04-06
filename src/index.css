@@ -118,4 +118,42 @@
   .gradient-border {
     border-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary))) 1;
   }
+
+  /* Glowing gradient button */
+  .glow-btn {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+    color: hsl(var(--primary-foreground));
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 20px hsl(var(--glow-primary) / 0.3),
+                0 0 60px hsl(var(--glow-primary) / 0.1);
+  }
+
+  .glow-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px hsl(var(--glow-primary) / 0.5),
+                0 0 80px hsl(var(--glow-primary) / 0.2),
+                0 4px 20px hsl(var(--glow-secondary) / 0.3);
+  }
+
+  .glow-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), hsl(var(--foreground) / 0.2) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .glow-btn:active::after {
+    opacity: 1;
+  }
+
+  /* Neon border on hover */
+  .hover\:neon-border:hover {
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 8px hsl(var(--glow-primary) / 0.4),
+                inset 0 0 8px hsl(var(--glow-primary) / 0.1);
+  }
 }

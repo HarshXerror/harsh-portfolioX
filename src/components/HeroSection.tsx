@@ -1,12 +1,13 @@
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { Github, Linkedin, Instagram, MessageCircle, Download } from "lucide-react";
+import ProfileCanvas from "./ProfileCanvas";
 
 const roles = [
   "AI/ML Enthusiast",
   "Python Developer",
-  "Data Science Explorer",
-  "BCA Student",
+  "Future AI Engineer",
+  "Building AI Projects",
 ];
 
 const socials = [
@@ -20,35 +21,19 @@ const HeroSection = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [deleting, setDeleting] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  // 3D tilt
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const rotateX = useSpring(useTransform(mouseY, [-300, 300], [15, -15]), { stiffness: 100, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-300, 300], [-15, 15]), { stiffness: 100, damping: 20 });
-
-  const handleMouse = (e: React.MouseEvent) => {
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    mouseX.set(e.clientX - rect.left - rect.width / 2);
-    mouseY.set(e.clientY - rect.top - rect.height / 2);
-  };
-
-  // Typing effect
   useEffect(() => {
     const current = roles[roleIndex];
     let timeout: ReturnType<typeof setTimeout>;
-
     if (!deleting) {
       if (displayed.length < current.length) {
-        timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 80);
+        timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 70);
       } else {
-        timeout = setTimeout(() => setDeleting(true), 2000);
+        timeout = setTimeout(() => setDeleting(true), 2200);
       }
     } else {
       if (displayed.length > 0) {
-        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 40);
+        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 35);
       } else {
         setDeleting(false);
         setRoleIndex((prev) => (prev + 1) % roles.length);
@@ -99,7 +84,7 @@ const HeroSection = () => {
             </h1>
 
             <div className="h-10 md:h-12 flex items-center justify-center lg:justify-start">
-              <span className="text-xl md:text-2xl text-muted-foreground">
+              <span className="text-xl md:text-2xl text-muted-foreground font-mono">
                 {displayed}
               </span>
               <span className="ml-1 w-0.5 h-6 bg-primary animate-pulse-glow inline-block" />
@@ -129,7 +114,7 @@ const HeroSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="w-10 h-10 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-primary hover:glow-primary transition-all duration-300"
+                  className="w-10 h-10 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-primary hover:glow-primary hover:scale-110 transition-all duration-300 hover:neon-border"
                 >
                   <s.icon size={18} />
                 </a>
@@ -145,7 +130,7 @@ const HeroSection = () => {
             >
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity glow-primary"
+                className="glow-btn inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium"
               >
                 <Download size={18} />
                 Download Resume 📄
@@ -153,49 +138,14 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* 3D Image */}
+          {/* 3D Profile Image */}
           <motion.div
-            ref={containerRef}
-            onMouseMove={handleMouse}
-            onMouseLeave={() => {
-              mouseX.set(0);
-              mouseY.set(0);
-            }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex-shrink-0 perspective-1000"
-            style={{ perspective: 1000 }}
+            className="flex-shrink-0"
           >
-            <motion.div
-              style={{ rotateX, rotateY }}
-              className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96"
-            >
-              {/* Glow ring */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 blur-xl animate-pulse-glow" />
-
-              {/* Avatar placeholder */}
-              <div className="relative w-full h-full rounded-full glass overflow-hidden border-2 border-primary/20 flex items-center justify-center">
-                <span className="text-7xl md:text-8xl font-bold gradient-text select-none">HS</span>
-              </div>
-
-              {/* Floating badge */}
-              <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 3, repeat: Infinity }}
-                className="absolute -bottom-2 -right-2 px-3 py-1.5 rounded-lg glass text-xs font-mono text-primary"
-              >
-                AI/ML 🤖
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 4, repeat: Infinity }}
-                className="absolute -top-2 -left-2 px-3 py-1.5 rounded-lg glass text-xs font-mono text-secondary"
-              >
-                Python 🐍
-              </motion.div>
-            </motion.div>
+            <ProfileCanvas />
           </motion.div>
         </div>
       </div>

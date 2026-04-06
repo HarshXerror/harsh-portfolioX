@@ -9,10 +9,13 @@ import ProjectsSection from "@/components/ProjectsSection";
 import GitHubStats from "@/components/GitHubStats";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import { useLenis } from "@/hooks/useLenis";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
   const handleLoadingComplete = useCallback(() => setLoading(false), []);
+
+  useLenis();
 
   return (
     <>
