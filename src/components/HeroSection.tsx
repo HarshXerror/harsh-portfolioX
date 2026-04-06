@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Github, Linkedin, Instagram, MessageCircle, Download } from "lucide-react";
-import ProfileCanvas from "./ProfileCanvas";
+
 
 const roles = [
   "AI/ML Enthusiast",
@@ -138,15 +138,6 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* 3D Profile Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex-shrink-0"
-          >
-            <ProfileCanvas />
-          </motion.div>
         </div>
       </div>
 
