@@ -1,0 +1,217 @@
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import { Github, Linkedin, Instagram, MessageCircle, Download } from "lucide-react";
+
+const roles = [
+  "AI/ML Enthusiast",
+  "Python Developer",
+  "Data Science Explorer",
+  "BCA Student",
+];
+
+const socials = [
+  { icon: Github, href: "https://github.com/harshsingh", label: "GitHub" },
+  { icon: Linkedin, href: "https://linkedin.com/in/harshsingh", label: "LinkedIn" },
+  { icon: Instagram, href: "https://instagram.com/harshsingh", label: "Instagram" },
+  { icon: MessageCircle, href: "https://wa.me/919999999999", label: "WhatsApp" },
+];
+
+const HeroSection = () => {
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [displayed, setDisplayed] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // 3D tilt
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(mouseY, [-300, 300], [15, -15]), { stiffness: 100, damping: 20 });
+  const rotateY = useSpring(useTransform(mouseX, [-300, 300], [-15, 15]), { stiffness: 100, damping: 20 });
+
+  const handleMouse = (e: React.MouseEvent) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    mouseX.set(e.clientX - rect.left - rect.width / 2);
+    mouseY.set(e.clientY - rect.top - rect.height / 2);
+  };
+
+  // Typing effect
+  useEffect(() => {
+    const current = roles[roleIndex];
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (!deleting) {
+      if (displayed.length < current.length) {
+        timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 80);
+      } else {
+        timeout = setTimeout(() => setDeleting(true), 2000);
+      }
+    } else {
+      if (displayed.length > 0) {
+        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 40);
+      } else {
+        setDeleting(false);
+        setRoleIndex((prev) => (prev + 1) % roles.length);
+      }
+    }
+    return () => clearTimeout(timeout);
+  }, [displayed, deleting, roleIndex]);
+
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+      {/* Animated background orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/5 blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-secondary/5 blur-3xl animate-float" style={{ animationDelay: "2s" }} />
+        <div className="absolute top-1/2 left-1/2 w-64 h-64 rounded-full bg-accent/5 blur-3xl animate-float" style={{ animationDelay: "4s" }} />
+      </div>
+
+      {/* Grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: "linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
+
+      <div className="container mx-auto px-4 md:px-8 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+          {/* Text content */}
+          <motion.div
+            initial={{ opacity: 0, x: -60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex-1 text-center lg:text-left"
+          >
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="text-primary font-mono text-sm mb-4"
+            >
+              &lt;Hello World /&gt;
+            </motion.p>
+
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
+              Hi, I'm{" "}
+              <span className="gradient-text">Harsh</span>
+            </h1>
+
+            <div className="h-10 md:h-12 flex items-center justify-center lg:justify-start">
+              <span className="text-xl md:text-2xl text-muted-foreground">
+                {displayed}
+              </span>
+              <span className="ml-1 w-0.5 h-6 bg-primary animate-pulse-glow inline-block" />
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="text-muted-foreground mt-6 max-w-md mx-auto lg:mx-0 leading-relaxed"
+            >
+              BCA student passionate about Artificial Intelligence & Machine Learning.
+              Building the future, one model at a time.
+            </motion.p>
+
+            {/* Social icons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              className="flex items-center gap-4 mt-8 justify-center lg:justify-start"
+            >
+              {socials.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="w-10 h-10 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-primary hover:glow-primary transition-all duration-300"
+                >
+                  <s.icon size={18} />
+                </a>
+              ))}
+            </motion.div>
+
+            {/* Resume button */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="mt-8 flex justify-center lg:justify-start"
+            >
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity glow-primary"
+              >
+                <Download size={18} />
+                Download Resume 📄
+              </a>
+            </motion.div>
+          </motion.div>
+
+          {/* 3D Image */}
+          <motion.div
+            ref={containerRef}
+            onMouseMove={handleMouse}
+            onMouseLeave={() => {
+              mouseX.set(0);
+              mouseY.set(0);
+            }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex-shrink-0 perspective-1000"
+            style={{ perspective: 1000 }}
+          >
+            <motion.div
+              style={{ rotateX, rotateY }}
+              className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96"
+            >
+              {/* Glow ring */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 blur-xl animate-pulse-glow" />
+
+              {/* Avatar placeholder */}
+              <div className="relative w-full h-full rounded-full glass overflow-hidden border-2 border-primary/20 flex items-center justify-center">
+                <span className="text-7xl md:text-8xl font-bold gradient-text select-none">HS</span>
+              </div>
+
+              {/* Floating badge */}
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="absolute -bottom-2 -right-2 px-3 py-1.5 rounded-lg glass text-xs font-mono text-primary"
+              >
+                AI/ML 🤖
+              </motion.div>
+
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 4, repeat: Infinity }}
+                className="absolute -top-2 -left-2 px-3 py-1.5 rounded-lg glass text-xs font-mono text-secondary"
+              >
+                Python 🐍
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      >
+        <div className="w-5 h-8 rounded-full border border-muted-foreground/30 flex justify-center pt-1.5">
+          <div className="w-1 h-2 rounded-full bg-primary animate-pulse-glow" />
+        </div>
+      </motion.div>
+    </section>
+  );
+};
+
+export default HeroSection;
