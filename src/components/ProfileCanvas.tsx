@@ -70,7 +70,7 @@ const BackgroundPlane = () => {
       {/* Main image */}
       <mesh ref={meshRef}>
         <planeGeometry args={[planeWidth, planeHeight]} />
-        <meshBasicMaterial map={texture} transparent opacity={0.35} />
+        <meshBasicMaterial map={texture} transparent opacity={0.85} />
       </mesh>
     </group>
   );
