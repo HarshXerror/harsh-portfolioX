@@ -11,10 +11,10 @@ const roles = [
 ];
 
 const socials = [
-  { icon: Github, href: "https://github.com/harshsingh", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com/in/harshsingh", label: "LinkedIn" },
-  { icon: Instagram, href: "https://instagram.com/harshsingh", label: "Instagram" },
-  { icon: MessageCircle, href: "https://wa.me/919999999999", label: "WhatsApp" },
+  { icon: Github, href: "https://github.com/HarshXerror", label: "GitHub" },
+  { icon: Linkedin, href: "https://linkedin.com/in/harsh-singh-65325a38a", label: "LinkedIn" },
+  { icon: Instagram, href: "https://instagram.com/i.amharshh_", label: "Instagram" },
+  { icon: MessageCircle, href: "https://wa.me/919250973339", label: "WhatsApp" },
 ];
 
 const HeroSection = () => {

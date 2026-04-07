@@ -10,7 +10,7 @@ interface GitHubUser {
   bio: string;
 }
 
-const GITHUB_USERNAME = "harshsingh";
+const GITHUB_USERNAME = "HarshXerror";
 
 const GitHubStats = () => {
   const [stats, setStats] = useState<GitHubUser | null>(null);

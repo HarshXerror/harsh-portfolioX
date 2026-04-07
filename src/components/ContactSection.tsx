@@ -81,7 +81,7 @@ const ContactSection = () => {
           {/* Quick contact buttons */}
           <div className="flex items-center justify-center gap-4 mt-8">
             <a
-              href="https://wa.me/919999999999"
+              href="https://wa.me/919250973339"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg glass text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -89,7 +89,7 @@ const ContactSection = () => {
               <MessageCircle size={16} /> WhatsApp
             </a>
             <a
-              href="mailto:harsh@example.com"
+              href="mailto:harshsingh25h@gmail.com"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg glass text-sm text-muted-foreground hover:text-accent transition-colors"
             >
               <Mail size={16} /> Email

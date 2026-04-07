@@ -1,10 +1,10 @@
 import { Github, Linkedin, Instagram, MessageCircle } from "lucide-react";
 
 const socials = [
-  { icon: Github, href: "https://github.com/harshsingh" },
-  { icon: Linkedin, href: "https://linkedin.com/in/harshsingh" },
-  { icon: Instagram, href: "https://instagram.com/harshsingh" },
-  { icon: MessageCircle, href: "https://wa.me/919999999999" },
+  { icon: Github, href: "https://github.com/HarshXerror" },
+  { icon: Linkedin, href: "https://linkedin.com/in/harsh-singh-65325a38a" },
+  { icon: Instagram, href: "https://instagram.com/i.amharshh_" },
+  { icon: MessageCircle, href: "https://wa.me/919250973339" },
 ];
 
 const Footer = () => {
